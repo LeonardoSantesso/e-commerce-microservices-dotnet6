@@ -2,11 +2,11 @@
 
 namespace GeekShopping.ProductAPI.Model.Context
 {
-    public class MySQLContext : DbContext
+    public class DatabaseContext : DbContext
     {
-        public MySQLContext() { }
+        public DatabaseContext() { }
 
-        public MySQLContext(DbContextOptions<MySQLContext> options) : base(options) { }
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
         public DbSet<Product> Products { get; set; }
 

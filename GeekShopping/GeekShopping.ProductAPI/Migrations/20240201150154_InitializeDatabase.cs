@@ -7,11 +7,28 @@
 namespace GeekShopping.ProductAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedProductDataTable : Migration
+    public partial class InitializeDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "product",
+                columns: table => new
+                {
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    category_name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    image_url = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_product", x => x.id);
+                });
+
             migrationBuilder.InsertData(
                 table: "product",
                 columns: new[] { "id", "category_name", "Description", "image_url", "name", "price" },
@@ -35,65 +52,8 @@ namespace GeekShopping.ProductAPI.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "product",
-                keyColumn: "id",
-                keyValue: 2L);
-
-            migrationBuilder.DeleteData(
-                table: "product",
-                keyColumn: "id",
-                keyValue: 3L);
-
-            migrationBuilder.DeleteData(
-                table: "product",
-                keyColumn: "id",
-                keyValue: 4L);
-
-            migrationBuilder.DeleteData(
-                table: "product",
-                keyColumn: "id",
-                keyValue: 5L);
-
-            migrationBuilder.DeleteData(
-                table: "product",
-                keyColumn: "id",
-                keyValue: 6L);
-
-            migrationBuilder.DeleteData(
-                table: "product",
-                keyColumn: "id",
-                keyValue: 7L);
-
-            migrationBuilder.DeleteData(
-                table: "product",
-                keyColumn: "id",
-                keyValue: 8L);
-
-            migrationBuilder.DeleteData(
-                table: "product",
-                keyColumn: "id",
-                keyValue: 9L);
-
-            migrationBuilder.DeleteData(
-                table: "product",
-                keyColumn: "id",
-                keyValue: 10L);
-
-            migrationBuilder.DeleteData(
-                table: "product",
-                keyColumn: "id",
-                keyValue: 11L);
-
-            migrationBuilder.DeleteData(
-                table: "product",
-                keyColumn: "id",
-                keyValue: 12L);
-
-            migrationBuilder.DeleteData(
-                table: "product",
-                keyColumn: "id",
-                keyValue: 13L);
+            migrationBuilder.DropTable(
+                name: "product");
         }
     }
 }

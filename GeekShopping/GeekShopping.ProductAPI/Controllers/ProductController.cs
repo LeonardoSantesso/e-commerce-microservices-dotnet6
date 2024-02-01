@@ -2,7 +2,6 @@
 using GeekShopping.ProductAPI.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using GeekShopping.ProductAPI.Utils;
 
 namespace GeekShopping.ProductAPI.Controllers
@@ -20,7 +19,6 @@ namespace GeekShopping.ProductAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<ProductVO>>> FindAll()
         {
             var products = await _productRepository.FindAll();

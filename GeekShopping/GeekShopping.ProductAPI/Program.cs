@@ -3,20 +3,19 @@ using GeekShopping.ProductAPI.Mappings;
 using GeekShopping.ProductAPI.Model.Context;
 using GeekShopping.ProductAPI.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 
 
-builder.Services.AddDbContextFactory<MySQLContext>(options =>
-{
-    options.UseMySql(builder.Configuration.GetConnectionString("MySQLConnectionString"), new MySqlServerVersion(new Version(8,0,33)));
-});
+//Connection String
+var connectionString = builder.Configuration.GetConnectionString("DefaultSqlServer");
+builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString));
 
 // Services
 builder.Services.AddScoped<IProductRepository, ProductRepository>();

@@ -8,7 +8,7 @@
             <h1 class="text-primary">Products List</h1>
         </div>
         <div class="col text-end pt-1">
-            <a asp-action="ProductCreate" class="btn btn-outline-primary">
+            <a asp-action="Create" class="btn btn-outline-primary">
                 <i class="fas fa-plus"></i>Create New Product
             </a>
         </div>
@@ -41,12 +41,12 @@
                         @((item.Price).ToString("c"))
                     </td>
                     <td>
-                        <a asp-action="ProductUpdate" class="btn btn-success" asp-route-id="@item.Id">
+                        <a asp-action="Update" class="btn btn-success" asp-route-id="@item.Id">
                             <i class="fas fa-edit"></i>
                         </a>
                         @if (User.IsInRole("Admin"))
                         {
-                            <a asp-action="ProductDelete" class="btn btn-danger" asp-route-id="@item.Id">
+                            <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">
                                 <i class="fas fa-trash"></i>
                             </a>
                         }
