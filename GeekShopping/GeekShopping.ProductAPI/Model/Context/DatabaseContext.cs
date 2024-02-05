@@ -12,6 +12,11 @@ namespace GeekShopping.ProductAPI.Model.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            SeedData(modelBuilder);
+        }
+
+        private void SeedData(ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 Id = 2,
