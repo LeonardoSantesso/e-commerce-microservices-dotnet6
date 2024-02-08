@@ -126,6 +126,7 @@ namespace GeekShopping.CartAPI.Repository
                 await _context.SaveChangesAsync();
                 cart.CartDetails.FirstOrDefault()!.CartHeaderId = cart.CartHeader.Id;
                 cart.CartDetails.FirstOrDefault()!.Product = null;
+                cart.CartDetails.FirstOrDefault()!.CartHeader = null;
                 _context.CartDetails.Add(cart.CartDetails.FirstOrDefault());
                 await _context.SaveChangesAsync();
             }
@@ -141,6 +142,7 @@ namespace GeekShopping.CartAPI.Repository
                 {
                     //Create CartDetails
                     cart.CartDetails.FirstOrDefault()!.CartHeaderId = cartHeader.Id;
+                    cart.CartDetails.FirstOrDefault()!.CartHeader = null;
                     cart.CartDetails.FirstOrDefault()!.Product = null;
                     _context.CartDetails.Add(cart.CartDetails.FirstOrDefault());
                     await _context.SaveChangesAsync();
@@ -152,6 +154,7 @@ namespace GeekShopping.CartAPI.Repository
                     cart.CartDetails.FirstOrDefault()!.Count += cartDetail.Count;
                     cart.CartDetails.FirstOrDefault()!.Id = cartDetail.Id;
                     cart.CartDetails.FirstOrDefault()!.CartHeaderId = cartDetail.CartHeaderId;
+                    cart.CartDetails.FirstOrDefault()!.CartHeader = null;
                     _context.CartDetails.Update(cart.CartDetails.FirstOrDefault());
                     await _context.SaveChangesAsync();
                 }
