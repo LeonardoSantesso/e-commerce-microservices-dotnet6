@@ -1,9 +1,11 @@
-﻿namespace GeekShopping.Web.Models
+﻿using GeekShopping.CartAPI.Data.ValueObjects;
+
+namespace GeekShopping.CartAPI.Messages
 {
-    public class CartHeaderViewModel
+    public class CheckoutHeaderVO
     {
         public long Id { get; set; }
-        public string? UserId { get; set; }
+        public string UserId { get; set; }
         public string CouponCode { get; set; }
         public decimal PurchaseAmount { get; set; }
         public decimal DiscountAmount { get; set; }
@@ -15,5 +17,8 @@
         public string CardNumber { get; set; }
         public string CVV { get; set; }
         public string ExpiryMothYear { get; set; }
+
+        public int CartTotalItens { get; set; } = 0;
+        public IEnumerable<CartDetailVO> CartDetails { get; set; } = new List<CartDetailVO>();
     }
 }
