@@ -9,7 +9,7 @@
         public decimal DiscountAmount { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; set; } = DateTime.Now;
         public string Phone { get; set; }
         public string Email { get; set; }
         public string CardNumber { get; set; }

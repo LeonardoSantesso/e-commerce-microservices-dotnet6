@@ -1,14 +1,13 @@
-using GeekShopping.OrderAPI.MessageConsumer;
-using GeekShopping.OrderAPI.Model.Context;
-using GeekShopping.OrderAPI.RabbitMQSender;
-using GeekShopping.OrderAPI.Repository;
+using GeekShopping.Email.MessageConsumer;
+using GeekShopping.Email.Model.Context;
+using GeekShopping.Email.Repository;
+using GeekShopping.Email.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
 
 //Connection String
@@ -17,14 +16,14 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(c
 
 var dbContextBuilder = new DbContextOptionsBuilder<DatabaseContext>();
 dbContextBuilder.UseSqlServer(connectionString);
-builder.Services.AddSingleton(new OrderRepository(dbContextBuilder.Options));
 
-builder.Services.AddEndpointsApiExplorer();
-
-// Services
-builder.Services.AddHostedService<RabbitMQCheckoutConsumer>();
+// Add services to the container.
+builder.Services.AddSingleton(new EmailRepository(dbContextBuilder.Options));
+builder.Services.AddScoped<IEmailRepository, EmailRepository>();
 builder.Services.AddHostedService<RabbitMQPaymentConsumer>();
-builder.Services.AddSingleton<IRabbitMQMessageSender, RabbitMQMessageSender>();
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddControllers();
 
@@ -49,7 +48,7 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GeekShopping.OrderAPI", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GeekShopping.Email", Version = "v1" });
     c.EnableAnnotations();
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -78,6 +77,7 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
 
 var app = builder.Build();
 
